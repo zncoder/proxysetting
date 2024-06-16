@@ -1,0 +1,17 @@
+{
+	"name": "proxysetting",
+	"version": "1.0.0",
+	"manifest_version": 2,
+	"description": "Disable system proxy setting",
+	"permissions": ["proxy"],
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"icons": {
+		"48": "icons/48.png"
+	},
+	"browser_action": {
+		"default_icon": "icons/32.png",
+		"default_title": "Disable system proxy setting"
+	}
+}
