@@ -29,25 +29,52 @@ async function setUI() {
 	await browser.browserAction.setTitle({title: title})
 }
 
-async function setState() {
+async function storedState(op) {
+	key = 'controlled_by_this_extension'
+	switch (op) {
+	case 'set':
+		obj = {}
+		obj[key] = true
+		await browser.storage.local.set(obj)
+		break
+	case 'remove':
+		await browser.storage.local.remove(key)
+		break
+	case 'get':
+		let saved = await browser.storage.local.get(key)
+		return saved[key]
+	}
+}
+
+async function toggleState() {
 	let res = await browser.proxy.settings.get({})
 	switch (res.levelOfControl) {
 	case "controlled_by_this_extension":
 		// reset to default
 		await browser.proxy.settings.clear({})
+		await storedState('remove')
 		break
 	case "controllable_by_this_extension":
 		// disable proxy
 		await browser.proxy.settings.set({value: {proxyType: "none"}})
+		await storedState('set')
 		break
 	}
 	await setUI()
 }
 
+async function restoreState() {
+	let controlled = await storedState('get')
+	if (controlled) {
+		await browser.proxy.settings.set({value: {proxyType: "none"}})
+	}
+}
+
 async function init() {
 	allowed = await browser.extension.isAllowedIncognitoAccess()
 	if (allowed) {
-		await browser.browserAction.onClicked.addListener(setState)
+		await browser.browserAction.onClicked.addListener(toggleState)
+		await restoreState()
 	}
 	await setUI()
 }

@@ -1,9 +1,12 @@
 {
 	"name": "proxysetting",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"manifest_version": 2,
 	"description": "Disable system proxy setting",
-	"permissions": ["proxy"],
+	"permissions": [
+		"storage",
+		"proxy"
+	],
 	"browser_specific_settings": {
 		"gecko": {
 			"strict_min_version": "91.1.0"
