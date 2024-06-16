@@ -4,6 +4,11 @@
 	"manifest_version": 2,
 	"description": "Disable system proxy setting",
 	"permissions": ["proxy"],
+	"browser_specific_settings": {
+		"gecko": {
+			"strict_min_version": "91.1.0"
+		}
+	},
 	"background": {
 		"scripts": ["background.js"]
 	},
