@@ -18,10 +18,10 @@ async function setUI() {
 			title = "proxy restored"
 			break
 		case "controlled_by_other_extensions":
-			badge = "..."
+			badge = "Oth"
 			title = "proxy controlled by other extensions"
 		case "not_controllable":
-			badge = "⚠"
+			badge = "Dis"
 			title = "need permission in private browsing to control proxy"
 		}
 	}
